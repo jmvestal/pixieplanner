@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pixie Planner — Disney Dining Reservation Alerts</title>
+  <title>Pixie Planner — We Book Your Disney Reservations For You</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -16,7 +16,7 @@
     }
 
     .container {
-      max-width: 520px;
+      max-width: 560px;
       margin: 0 auto;
       background: #fff;
       border-radius: 16px;
@@ -46,16 +46,33 @@
     }
 
     .tagline {
-      color: #555;
+      color: #444;
       font-size: 15px;
-      line-height: 1.4;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .price-strip {
+      background: linear-gradient(135deg, #fdf4ff, #f3e8ff);
+      border: 1px solid #e9d5ff;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: #5b21b6;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .price-strip strong {
+      color: #4c1d95;
     }
 
     form {
       display: flex;
       flex-direction: column;
       gap: 16px;
-      margin-top: 8px;
+      margin-top: 22px;
     }
 
     .field {
@@ -83,7 +100,14 @@
       font-size: 12px;
     }
 
-    input, select {
+    .help {
+      font-size: 12px;
+      color: #888;
+      margin-top: -2px;
+      line-height: 1.4;
+    }
+
+    input, select, textarea {
       padding: 11px 12px;
       border: 1.5px solid #e0e0e8;
       border-radius: 8px;
@@ -91,12 +115,44 @@
       font-family: inherit;
       transition: border-color 0.15s, box-shadow 0.15s;
       background: #fff;
+      width: 100%;
     }
 
-    input:focus, select:focus {
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    input:focus, select:focus, textarea:focus {
       outline: none;
       border-color: #6b3fa0;
       box-shadow: 0 0 0 3px rgba(107,63,160,0.15);
+    }
+
+    .checkbox-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      background: #faf7ff;
+      border: 1.5px solid #e9d5ff;
+      border-radius: 8px;
+    }
+
+    .checkbox-field input[type="checkbox"] {
+      width: auto;
+      margin-top: 2px;
+      flex-shrink: 0;
+      transform: scale(1.15);
+      accent-color: #6b3fa0;
+    }
+
+    .checkbox-field label {
+      font-weight: 500;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #3a2065;
+      cursor: pointer;
     }
 
     button {
@@ -129,7 +185,7 @@
       border-radius: 8px;
       font-size: 14px;
       text-align: center;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     .message.success {
@@ -158,13 +214,34 @@
     <div class="header">
       <span class="sparkle">✨</span>
       <h1>Pixie Planner</h1>
-      <p class="tagline">Get an email the moment your Disney dining reservation opens up.</p>
+      <p class="tagline">Hard-to-get Disney dining reservation? <strong>We'll book it for you.</strong></p>
+
+      <div class="price-strip">
+        <strong>Free unless we succeed.</strong> Pay only $15 when we secure your reservation. $0 if we don't.
+      </div>
     </div>
 
     <form id="watch-form">
+      <div class="field-row">
+        <div class="field">
+          <label for="customer_name">Your Name</label>
+          <input type="text" id="customer_name" required placeholder="Jane Doe" />
+        </div>
+        <div class="field">
+          <label for="phone">Phone <span class="optional">(for fast alerts)</span></label>
+          <input type="tel" id="phone" placeholder="(555) 123-4567" />
+        </div>
+      </div>
+
       <div class="field">
-        <label for="email">Your Email</label>
-        <input type="email" id="email" required placeholder="you@example.com" />
+        <label for="contact_email">Contact Email</label>
+        <input type="email" id="contact_email" required placeholder="you@example.com" />
+      </div>
+
+      <div class="field">
+        <label for="mde_email">My Disney Experience Email</label>
+        <input type="email" id="mde_email" required placeholder="email tied to your Disney account" />
+        <span class="help">We'll send a friend request from this email so Disney lets us book on your behalf.</span>
       </div>
 
       <div class="field">
@@ -218,6 +295,10 @@
             <option>Trattoria al Forno (BoardWalk)</option>
             <option>Hoop-Dee-Doo Musical Revue (Fort Wilderness)</option>
           </optgroup>
+          <optgroup label="Bibbidi Bobbidi Boutique">
+            <option>BBB — Magic Kingdom (Cinderella Castle)</option>
+            <option>BBB — Disney Springs</option>
+          </optgroup>
           <optgroup label="Disneyland (CA)">
             <option>Blue Bayou</option>
             <option>Carthay Circle Restaurant</option>
@@ -235,33 +316,51 @@
 
       <div class="field-row">
         <div class="field">
-          <label for="desired_date">Date</label>
-          <input type="date" id="desired_date" required />
+          <label for="date_range_start">Earliest Date</label>
+          <input type="date" id="date_range_start" required />
         </div>
+        <div class="field">
+          <label for="date_range_end">Latest Date</label>
+          <input type="date" id="date_range_end" required />
+        </div>
+      </div>
+      <span class="help" style="margin-top:-10px;">A wider range = much higher chance of success. If your trip is one fixed day, pick that day for both.</span>
+
+      <div class="field-row">
         <div class="field">
           <label for="party_size">Party Size</label>
           <input type="number" id="party_size" min="1" max="20" value="2" required />
         </div>
-      </div>
-
-      <div class="field-row">
         <div class="field">
-          <label for="time_window_start">Earliest Time <span class="optional">(optional)</span></label>
+          <label for="time_window_start">Earliest Time <span class="optional">(opt.)</span></label>
           <input type="time" id="time_window_start" />
         </div>
-        <div class="field">
-          <label for="time_window_end">Latest Time <span class="optional">(optional)</span></label>
-          <input type="time" id="time_window_end" />
-        </div>
       </div>
 
-      <button type="submit" id="submit-btn">Set Up Alert ✨</button>
+      <div class="field">
+        <label for="time_window_end">Latest Time <span class="optional">(optional — leave blank for any time)</span></label>
+        <input type="time" id="time_window_end" />
+      </div>
+
+      <div class="field">
+        <label for="notes">Special Requests / Notes <span class="optional">(optional)</span></label>
+        <textarea id="notes" placeholder="e.g. celebrating an anniversary, prefer window seat, allergies, etc."></textarea>
+      </div>
+
+      <div class="checkbox-field">
+        <input type="checkbox" id="fee_acknowledged" required />
+        <label for="fee_acknowledged">
+          I understand there is a <strong>$15 service fee</strong> charged <em>only</em> when Pixie Planner successfully secures my reservation. If you don't get it, I owe nothing.
+        </label>
+      </div>
+
+      <button type="submit" id="submit-btn">Request Booking ✨</button>
     </form>
 
     <div id="message"></div>
 
     <p class="footer-note">
-      We'll email you the moment a matching reservation opens up. Free to try — leave time fields blank for any time.
+      Once submitted, you'll get a friend request from us in My Disney Experience. Accept it so we can book on your behalf. We unfriend ourselves as soon as your reservation is locked in.
     </p>
   </div>
 
@@ -276,16 +375,31 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       messageEl.innerHTML = '';
+
+      // Basic date range validation
+      const start = document.getElementById('date_range_start').value;
+      const end = document.getElementById('date_range_end').value;
+      if (end < start) {
+        messageEl.innerHTML = '<div class="message error">Latest date must be on or after the earliest date.</div>';
+        return;
+      }
+
       btn.disabled = true;
-      btn.textContent = 'Setting up alert...';
+      btn.textContent = 'Submitting...';
 
       const payload = {
-        email: document.getElementById('email').value.trim(),
+        customer_name: document.getElementById('customer_name').value.trim(),
+        contact_email: document.getElementById('contact_email').value.trim(),
+        phone: document.getElementById('phone').value.trim() || null,
+        mde_email: document.getElementById('mde_email').value.trim(),
         restaurant: document.getElementById('restaurant').value,
-        desired_date: document.getElementById('desired_date').value,
+        date_range_start: start,
+        date_range_end: end,
         party_size: parseInt(document.getElementById('party_size').value, 10),
         time_window_start: document.getElementById('time_window_start').value || null,
         time_window_end: document.getElementById('time_window_end').value || null,
+        notes: document.getElementById('notes').value.trim() || null,
+        fee_acknowledged: document.getElementById('fee_acknowledged').checked,
       };
 
       try {
@@ -301,10 +415,10 @@
         });
 
         if (res.ok) {
-          messageEl.className = '';
-          messageEl.innerHTML = '<div class="message success">✨ Alert set! We\'ll email you the moment a table opens up.</div>';
+          messageEl.innerHTML = '<div class="message success">✨ Request received! We\'ll send a friend request from My Disney Experience within a few hours and start hunting for your reservation. Watch your inbox.</div>';
           form.reset();
           document.getElementById('party_size').value = 2;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
           const errText = await res.text();
           messageEl.innerHTML = `<div class="message error">Something went wrong: ${errText}</div>`;
@@ -313,7 +427,7 @@
         messageEl.innerHTML = `<div class="message error">Network error: ${err.message}</div>`;
       } finally {
         btn.disabled = false;
-        btn.textContent = 'Set Up Alert ✨';
+        btn.textContent = 'Request Booking ✨';
       }
     });
   </script>
