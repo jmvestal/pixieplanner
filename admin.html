@@ -581,8 +581,12 @@
               <span>${phoneHtml}</span>
             </div>
             <div class="row">
-              <b>Fee Acknowledged</b>
-              <span>${w.fee_acknowledged ? '✅ Yes' : '⚠️ No'}</span>
+              <b>Service Fee</b>
+              <span style="font-weight:600;color:#4c1d95">${formatCents(w.service_fee_cents)} <span style="font-weight:400;color:#999;font-size:11px">(${escapeHtml(w.service_type || 'dining')})</span></span>
+            </div>
+            <div class="row">
+              <b>Payment</b>
+              <span>${paymentStatusBadge(w.payment_status)}</span>
             </div>
             ${notesHtml}
           </div>
@@ -622,6 +626,23 @@
     function formatDate(dateStr) {
       const d = new Date(dateStr + 'T00:00:00');
       return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function formatCents(cents) {
+      if (cents == null) return '—';
+      return '$' + (cents / 100).toFixed(2);
+    }
+
+    function paymentStatusBadge(status) {
+      const colors = {
+        unpaid:        { bg: '#fef3c7', fg: '#78350f', label: '⏳ No card on file' },
+        card_on_file:  { bg: '#dbeafe', fg: '#1e3a8a', label: '💳 Card saved' },
+        paid:          { bg: '#d1fae5', fg: '#065f46', label: '✅ Paid' },
+        refunded:      { bg: '#e0e7ff', fg: '#3730a3', label: '↩️ Refunded' },
+        failed:        { bg: '#fee2e2', fg: '#991b1b', label: '❌ Charge failed' },
+      };
+      const c = colors[status] || { bg: '#f3f4f6', fg: '#374151', label: status || 'unknown' };
+      return `<span style="display:inline-block;padding:3px 8px;border-radius:12px;background:${c.bg};color:${c.fg};font-size:12px;font-weight:600">${c.label}</span>`;
     }
 
     function escapeHtml(str) {

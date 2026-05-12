@@ -29,11 +29,7 @@
       margin-bottom: 24px;
     }
 
-    .sparkle {
-      font-size: 32px;
-      display: block;
-      margin-bottom: 8px;
-    }
+    .sparkle { font-size: 32px; display: block; margin-bottom: 8px; }
 
     h1 {
       font-size: 28px;
@@ -64,28 +60,13 @@
       line-height: 1.5;
     }
 
-    .price-strip strong {
-      color: #4c1d95;
-    }
+    .price-strip strong { color: #4c1d95; }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-top: 22px;
-    }
+    form { display: flex; flex-direction: column; gap: 16px; margin-top: 22px; }
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .field { display: flex; flex-direction: column; gap: 6px; }
 
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
     label {
       font-size: 13px;
@@ -94,18 +75,9 @@
       letter-spacing: 0.2px;
     }
 
-    label .optional {
-      font-weight: 400;
-      color: #888;
-      font-size: 12px;
-    }
+    label .optional { font-weight: 400; color: #888; font-size: 12px; }
 
-    .help {
-      font-size: 12px;
-      color: #888;
-      margin-top: -2px;
-      line-height: 1.4;
-    }
+    .help { font-size: 12px; color: #888; margin-top: -2px; line-height: 1.4; }
 
     input, select, textarea {
       padding: 11px 12px;
@@ -118,15 +90,45 @@
       width: 100%;
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 70px;
-    }
+    textarea { resize: vertical; min-height: 70px; }
 
     input:focus, select:focus, textarea:focus {
       outline: none;
       border-color: #6b3fa0;
       box-shadow: 0 0 0 3px rgba(107,63,160,0.15);
+    }
+
+    /* ─── Dynamic Fee Card ─── */
+    .fee-card {
+      margin-top: 4px;
+      padding: 16px 18px;
+      background: linear-gradient(135deg, #ede9fe, #fce7f3);
+      border: 2px solid #c4b5fd;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .fee-card .left { line-height: 1.35; }
+    .fee-card .label-top {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b21a8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .fee-card .sublabel {
+      font-size: 12px;
+      color: #6b21a8;
+      margin-top: 2px;
+    }
+    .fee-card .amount {
+      font-size: 28px;
+      font-weight: 800;
+      color: #4c1d95;
+      line-height: 1;
     }
 
     .checkbox-field {
@@ -168,16 +170,8 @@
       transition: transform 0.1s, box-shadow 0.15s;
     }
 
-    button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(107,63,160,0.35);
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
+    button:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(107,63,160,0.35); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
     .message {
       margin-top: 18px;
@@ -188,17 +182,8 @@
       line-height: 1.5;
     }
 
-    .message.success {
-      background: #e8f5e9;
-      color: #1b5e20;
-      border: 1px solid #a5d6a7;
-    }
-
-    .message.error {
-      background: #ffebee;
-      color: #b71c1c;
-      border: 1px solid #ef9a9a;
-    }
+    .message.success { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+    .message.error { background: #ffebee; color: #b71c1c; border: 1px solid #ef9a9a; }
 
     .footer-note {
       margin-top: 22px;
@@ -214,10 +199,10 @@
     <div class="header">
       <span class="sparkle">✨</span>
       <h1>Pixie Planner</h1>
-      <p class="tagline">Hard-to-get Disney dining reservation? <strong>We'll book it for you.</strong></p>
+      <p class="tagline">Hard-to-get Disney dining or BBB appointment? <strong>We'll book it for you.</strong></p>
 
       <div class="price-strip">
-        <strong>Free unless we succeed.</strong> Pay only $15 when we secure your reservation. $0 if we don't.
+        <strong>You only pay if we succeed.</strong> The service fee is charged automatically the moment we secure your reservation. $0 if we don't.
       </div>
     </div>
 
@@ -245,9 +230,9 @@
       </div>
 
       <div class="field">
-        <label for="restaurant">Restaurant</label>
+        <label for="restaurant">Restaurant / Activity</label>
         <select id="restaurant" required>
-          <option value="">— Choose a restaurant —</option>
+          <option value="">— Choose a restaurant or activity —</option>
           <optgroup label="Magic Kingdom">
             <option>Cinderella's Royal Table</option>
             <option>Be Our Guest Restaurant</option>
@@ -293,9 +278,11 @@
             <option>Beaches &amp; Cream (Beach Club)</option>
             <option>Yachtsman Steakhouse (Yacht Club)</option>
             <option>Trattoria al Forno (BoardWalk)</option>
+          </optgroup>
+          <optgroup label="Dinner Shows (Specialty)">
             <option>Hoop-Dee-Doo Musical Revue (Fort Wilderness)</option>
           </optgroup>
-          <optgroup label="Bibbidi Bobbidi Boutique">
+          <optgroup label="Activities (Flat Fee)">
             <option>BBB — Magic Kingdom (Cinderella Castle)</option>
             <option>BBB — Disney Springs</option>
           </optgroup>
@@ -347,10 +334,19 @@
         <textarea id="notes" placeholder="e.g. celebrating an anniversary, prefer window seat, allergies, etc."></textarea>
       </div>
 
+      <!-- Dynamic Fee Display -->
+      <div class="fee-card" id="fee-card">
+        <div class="left">
+          <div class="label-top">Your Service Fee</div>
+          <div class="sublabel" id="fee-explanation">Pick a restaurant to see your fee</div>
+        </div>
+        <div class="amount" id="fee-amount">—</div>
+      </div>
+
       <div class="checkbox-field">
         <input type="checkbox" id="fee_acknowledged" required />
         <label for="fee_acknowledged">
-          I understand there is a <strong>$15 service fee</strong> charged <em>only</em> when Pixie Planner successfully secures my reservation. If you don't get it, I owe nothing.
+          I understand the service fee shown above is charged <em>only</em> when Pixie Planner successfully secures my reservation. If we don't get it, I owe nothing.
         </label>
       </div>
 
@@ -368,21 +364,113 @@
     const SUPABASE_URL = 'https://qyktqlddzuziphhcvaco.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5a3RxbGRkenV6aXBoaGN2YWNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MjY4MjYsImV4cCI6MjA5NDEwMjgyNn0.ef68HcCk4oN6m7pajODPAcvgw9w-Xs_vKJAZ3iozQp0';
 
+    // ═════════════════════════════════════════════════════════════
+    // PRICING ENGINE
+    // ═════════════════════════════════════════════════════════════
+    //
+    //  - Activities (BBB):    $10 flat
+    //  - Hoop-Dee-Doo:        $15 flat (specialty dinner show, very hard to book)
+    //  - Restaurants:         $5 per guest, $10 minimum
+    //  - Per-restaurant overrides: drop entries into RESTAURANT_OVERRIDES below
+    //    to charge a different fee for specific restaurants. Example:
+    //    "Space 220 Restaurant": { fee: 1500 }
+    //
+    // All amounts are stored in CENTS to avoid floating point issues.
+
+    const RESTAURANT_OVERRIDES = {
+      // Add per-restaurant pricing overrides here as you gather data.
+      // "Space 220 Restaurant": { fee: 1500, type: "dining" },
+    };
+
+    const SERVICE_TYPES = {
+      // Activities (flat $10)
+      "BBB — Magic Kingdom (Cinderella Castle)":         "activity",
+      "BBB — Disney Springs":                            "activity",
+      // Hoop-Dee-Doo (flat $15)
+      "Hoop-Dee-Doo Musical Revue (Fort Wilderness)":    "hoopdeedoo",
+      // Everything else defaults to "dining" ($5/guest, $10 min)
+    };
+
+    function calculateFee(restaurant, partySize) {
+      // Override wins if set
+      if (RESTAURANT_OVERRIDES[restaurant]) {
+        return {
+          cents: RESTAURANT_OVERRIDES[restaurant].fee,
+          type: RESTAURANT_OVERRIDES[restaurant].type || "dining",
+        };
+      }
+
+      const type = SERVICE_TYPES[restaurant] || "dining";
+
+      if (type === "activity")    return { cents: 1000, type };
+      if (type === "hoopdeedoo")  return { cents: 1500, type };
+
+      // dining: $5 per guest, $10 minimum
+      const calculated = Math.max(1000, (partySize || 0) * 500);
+      return { cents: calculated, type: "dining" };
+    }
+
+    function formatCents(cents) {
+      return '$' + (cents / 100).toFixed(0);
+    }
+
+    function feeExplanationText(restaurant, partySize) {
+      if (!restaurant) return 'Pick a restaurant to see your fee';
+
+      const { type } = calculateFee(restaurant, partySize);
+
+      if (type === 'activity')   return 'Flat fee — activity booking';
+      if (type === 'hoopdeedoo') return 'Flat fee — specialty dinner show';
+      if (type === 'dining') {
+        if ((partySize || 0) * 500 < 1000) return '$10 minimum (party of 1)';
+        return `$5 × party of ${partySize}`;
+      }
+      return '';
+    }
+
+    // ═════════════════════════════════════════════════════════════
+    // FORM WIRING
+    // ═════════════════════════════════════════════════════════════
     const form = document.getElementById('watch-form');
     const btn = document.getElementById('submit-btn');
     const messageEl = document.getElementById('message');
+    const restaurantSel = document.getElementById('restaurant');
+    const partySizeInput = document.getElementById('party_size');
+    const feeAmountEl = document.getElementById('fee-amount');
+    const feeExplanationEl = document.getElementById('fee-explanation');
+
+    function updateFeeDisplay() {
+      const restaurant = restaurantSel.value;
+      const partySize = parseInt(partySizeInput.value, 10) || 0;
+
+      if (!restaurant) {
+        feeAmountEl.textContent = '—';
+        feeExplanationEl.textContent = 'Pick a restaurant to see your fee';
+        return;
+      }
+
+      const { cents } = calculateFee(restaurant, partySize);
+      feeAmountEl.textContent = formatCents(cents);
+      feeExplanationEl.textContent = feeExplanationText(restaurant, partySize);
+    }
+
+    restaurantSel.addEventListener('change', updateFeeDisplay);
+    partySizeInput.addEventListener('input', updateFeeDisplay);
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       messageEl.innerHTML = '';
 
-      // Basic date range validation
       const start = document.getElementById('date_range_start').value;
       const end = document.getElementById('date_range_end').value;
       if (end < start) {
         messageEl.innerHTML = '<div class="message error">Latest date must be on or after the earliest date.</div>';
         return;
       }
+
+      const restaurant = restaurantSel.value;
+      const partySize = parseInt(partySizeInput.value, 10);
+      const { cents: feeCents, type: serviceType } = calculateFee(restaurant, partySize);
 
       btn.disabled = true;
       btn.textContent = 'Submitting...';
@@ -392,14 +480,17 @@
         contact_email: document.getElementById('contact_email').value.trim(),
         phone: document.getElementById('phone').value.trim() || null,
         mde_email: document.getElementById('mde_email').value.trim(),
-        restaurant: document.getElementById('restaurant').value,
+        restaurant,
+        service_type: serviceType,
+        service_fee_cents: feeCents,
         date_range_start: start,
         date_range_end: end,
-        party_size: parseInt(document.getElementById('party_size').value, 10),
+        party_size: partySize,
         time_window_start: document.getElementById('time_window_start').value || null,
         time_window_end: document.getElementById('time_window_end').value || null,
         notes: document.getElementById('notes').value.trim() || null,
         fee_acknowledged: document.getElementById('fee_acknowledged').checked,
+        payment_status: 'unpaid',
       };
 
       try {
@@ -417,7 +508,8 @@
         if (res.ok) {
           messageEl.innerHTML = '<div class="message success">✨ Request received! We\'ll send a friend request from My Disney Experience within a few hours and start hunting for your reservation. Watch your inbox.</div>';
           form.reset();
-          document.getElementById('party_size').value = 2;
+          partySizeInput.value = 2;
+          updateFeeDisplay();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
           const errText = await res.text();
@@ -430,6 +522,9 @@
         btn.textContent = 'Request Booking ✨';
       }
     });
+
+    // Init
+    updateFeeDisplay();
   </script>
 </body>
 </html>
